@@ -4,15 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>生如夏花</title>
+  <title>JS 继承 | 生如夏花</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="A blog to share">
-<meta property="og:type" content="website">
-<meta property="og:title" content="生如夏花">
-<meta property="og:url" content="https://llianer.github.io/index.html">
+  <meta name="description" content="红宝书知识点整理 - 基础01chapter 1 什么是javascript js实现  核心(ECMAScript) 文档对象模型(DOM) 用于在HTML中使用扩展的XML 浏览器对象模型(BOM)chapter 2 HTML中的javascript   &lt;script&gt;元素 async 异步 不保证执行次序 defer 脚本可延迟到文档完全被解析和显示之后再执行 type 脚本语">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS 继承">
+<meta property="og:url" content="https://llianer.github.io/Front-end/js/front-end001/index.html">
 <meta property="og:site_name" content="生如夏花">
-<meta property="og:description" content="A blog to share">
+<meta property="og:description" content="红宝书知识点整理 - 基础01chapter 1 什么是javascript js实现  核心(ECMAScript) 文档对象模型(DOM) 用于在HTML中使用扩展的XML 浏览器对象模型(BOM)chapter 2 HTML中的javascript   &lt;script&gt;元素 async 异步 不保证执行次序 defer 脚本可延迟到文档完全被解析和显示之后再执行 type 脚本语">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-12T01:07:15.000Z">
+<meta property="article:modified_time" content="2021-01-13T06:19:11.645Z">
 <meta property="article:author" content="Lotus Luo">
 <meta property="article:tag" content="front-end">
 <meta name="twitter:card" content="summary">
@@ -76,189 +78,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-hello-traveler" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/welcome/hello-traveler/" class="article-date">
-  <time class="dt-published" datetime="2021-01-07T07:04:36.190Z" itemprop="datePublished">2021-01-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/welcome/">welcome</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/welcome/hello-traveler/">Hello, traveler!</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>  欢迎来到我的博客 <a href="https://llianer.github.io/">my blog</a>!  前端一枚，记录着我的故事，前端修炼心得……<br>  来点文艺的<br>  为一个在成长路上的小星球留下ta的运行轨迹～</p>
-<p>Have fun, my friends!</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://llianer.github.io/welcome/hello-traveler/" data-id="ckjk52hjb00008vlid47073b5" data-title="Hello, traveler!" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-feeling-2021" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/Life/feeling-2021/" class="article-date">
-  <time class="dt-published" datetime="2021-01-08T14:16:40.000Z" itemprop="datePublished">2021-01-08</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Life/">Life</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/Life/feeling-2021/">吾家有女初至二十五</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;2021年低调的来到，不平凡的2020发生了好多事情，今年八月我将跨过二十五，总觉得自己还很小，稚气未退，刚才一会还在和自己年十岁的弟弟打闹，快乐难过的情绪都被时间调匀，渐渐地模糊了原来的所有。出生、入学、高考、就业，未成年的我走到了这个阶段，说是未成年只是自己想要的样子，时间会教会你很多。从曾经的蛮横无理到现在的温柔平静，这中间经历的抑郁委屈已经数不过来，小时候有被百依百顺对待后的侍宠而骄，天塌下有人顶着的无忧无虑，长大了就得慢慢学着照顾别人的感受，学着自己撑起自己的一片天，说起来真的一句话能带过，实现起来却是那么的艰难…<br>&nbsp;&nbsp;&nbsp;&nbsp;从深圳打工回来到家里，可能因为自己变得安静，妈妈说我感觉越来越疏远没有以前那么亲热了，说感觉我很不开心，不知道为什么我听着鼻子就酸了，后来去亲戚家做客，回来的路上，表哥劝我说你年后就不要往深圳跑了，这里发展也挺好的，你跑远爸妈还为你担心，你不知道你妈每次提起’我们家emmm(我名字)‘就抹眼泪，才知道这一路成长我妈是真的心疼了，虽然平时好像一点感觉不到。<br>&nbsp;&nbsp;&nbsp;&nbsp;不知道从什么时候开始有事再也不和家人说，有什么事也不再说出来，甚至强力伪装成自己一点也不喜欢的样子，我喜欢原来直率真诚的自己，讨厌前瞻后顾隐藏情绪的自己，总感觉和人隔着透明的墙，可能这是一种成长，从什么都不想到想得太多…自尊心强，性格太好强是和自己过不去吧，之前做什么好像在给别人看，活着越来越失去自我，才渐渐懂得承认自己的渺小，看清自己，坦白面对自己的缺点和不足真的很重要，或许真的没见什么世面，很容易把事情看得太重要而心态失衡，不管处于什么阶段，你是经验丰富的大师或一无所知的小白，放平衡自己的心态就好了…不因一无所知而卑微，不因比人优秀而自满，在一无所知的时候，虚心求教，放低自己的姿态，世界上优秀的人真的很多，不是什么高智商人才，唯有一直自律努力就够了…</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://llianer.github.io/Life/feeling-2021/" data-id="ckjsa2mi00000n5li1cys2wvw" data-title="吾家有女初至二十五" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-font-end000" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/Front-end/js/font-end000/" class="article-date">
-  <time class="dt-published" datetime="2021-01-10T01:07:15.000Z" itemprop="datePublished">2021-01-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Front-end/">Front-end</a>►<a class="article-category-link" href="/categories/Front-end/js/">js</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/Front-end/js/font-end000/">JS 继承</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><strong><em>背景：</em></strong> 曾一次面试，面试官上来就问JS实现继承的方式，当时没怎么搞清楚，一知半解，之后网上查过资料，这里参照红宝书结合自己的理解对这一知识点进行梳理。</p>
-<h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><p><strong><em>基本构想：</em></strong> 每个构造函数都有一原型对象，其实例有个内部指针（即 [[Prototype]]/__proto__）指向原型; 如果原型是另一个类型的实例，意味着原型本身有个内部指针指向另一个原型。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.property = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">A.prototype.getA = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.property;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.bProperty = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// B 通过原型链方式继承 A 的实例属性和原型方法</span></span><br><span class="line"><span class="comment">// 下面赋值重写了B的原型 重写前 B.prototype.constructor = B</span></span><br><span class="line">B.prototype = <span class="keyword">new</span> A();</span><br><span class="line"><span class="comment">// 由于 B 的原型的constructor被重写指向A， 所以 B 对应实例的constructor属性也指向 A</span></span><br><span class="line"><span class="keyword">let</span> instance = <span class="keyword">new</span> B();</span><br><span class="line"><span class="comment">// 注意：通过对象字面量添加方法会使继承失效</span></span><br><span class="line">B.prototype = &#123; <span class="function"><span class="title">someMethod</span>(<span class="params"></span>)</span> &#123;&#125; &#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>问题<ul>
-<li>原型中包含引用值时，造成实例共享引用值;</li>
-<li>子类型实例化时不能给构造函数传参</li>
-</ul>
-</li>
-</ul>
-<h3 id="借用构造函数继承"><a href="#借用构造函数继承" class="headerlink" title="借用构造函数继承"></a>借用构造函数继承</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    A.call(<span class="built_in">this</span>);</span><br><span class="line">    <span class="comment">//  ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>问题<ul>
-<li>要在构造函数中定义方法，因此不能重用;</li>
-<li>子类不能访问父类原型上定义的方法</li>
-</ul>
-</li>
-</ul>
-<h3 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h3><p><strong><em>基本思路：</em></strong>使用原型链继承原型上的属性和方法，通过借用构造函数继承实例属性</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    A.call(<span class="built_in">this</span>);</span><br><span class="line">    <span class="comment">//  ...</span></span><br><span class="line">&#125;</span><br><span class="line">B.prototype = <span class="keyword">new</span> A();</span><br></pre></td></tr></table></figure>
-<ul>
-<li>问题<ul>
-<li>调用两次父类构造函数</li>
-</ul>
-</li>
-</ul>
-<h3 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h3><p><strong><em>用处：</em></strong>不自定义类型可通过原型实现对象间的信息共享</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">funtion <span class="function"><span class="title">create</span>(<span class="params">obj</span>)</span> &#123;</span><br><span class="line">    <span class="function"><span class="title">F</span>(<span class="params"></span>)</span> &#123;&#125;</span><br><span class="line">    F.prototype = obj;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    name: <span class="string">&#x27;Lily&#x27;</span>,</span><br><span class="line">    likes: [<span class="string">&quot;book&quot;</span>, <span class="string">&quot;computer&quot;</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// create 是对传入person对象的一次浅复制</span></span><br><span class="line"><span class="comment">// 新对象的原型上既有原始值属性又有引用值属性</span></span><br><span class="line"><span class="keyword">let</span> anoPerson = create(person);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>问题<ul>
-<li>属性中包含的引用值始终在相关对象间共享</li>
-</ul>
-</li>
-</ul>
-<h3 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h3><p><strong><em>基本思路：</em></strong>创建一个实现继承的函数，以某种方式增强对象，然后返回这个对象（与原型式继承类似，适合主要关注对象，不在乎类型和构造函数的场景）</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createAno</span>(<span class="params">original</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> clone = create(original);  <span class="comment">// 创建新对象</span></span><br><span class="line">    clone.sayHi = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;  <span class="comment">// 增强新对象</span></span><br><span class="line">    <span class="keyword">return</span> clone;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>问题<ul>
-<li>给对象添加的函数难以重用</li>
-</ul>
-</li>
-</ul>
-<h3 id="寄生式组合继承"><a href="#寄生式组合继承" class="headerlink" title="寄生式组合继承"></a>寄生式组合继承</h3><p><strong><em>基本思路：</em></strong>通过借用构造函数继承属性，但不通过调用父类构造函数给子类原型赋值（解决组合式继承调用两次父类构造函数问题），而是使用寄生式继承来继承父类原型，然后将返回的继承了父类原型的新对象赋值给子类原型。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inheritProto</span>(<span class="params">fu, zi</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> prototype = create(fu.prototype);  <span class="comment">// 创建父类原型副本</span></span><br><span class="line">    prototype.constructor = zi;  <span class="comment">// 解决由于下面一行重写原型导致的constructor丢失问题</span></span><br><span class="line">    zi.prototype = prototype;</span><br><span class="line">&#125;</span><br><span class="line">inheritProto(A, B);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>问题<ul>
-<li>算是引用类型继承的最佳实践，站在巨人的肩膀上～</li>
-</ul>
-</li>
-</ul>
-<p><i>来自《javascript高级程序设计》第四版 阅读整理</i></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://llianer.github.io/Front-end/js/font-end000/" data-id="ckjsa2mi70001n5li8vzx3trl" data-title="JS 继承" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-front-end001" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-front-end001" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/Front-end/js/front-end001/" class="article-date">
   <time class="dt-published" datetime="2021-01-12T01:07:15.000Z" itemprop="datePublished">2021-01-12</time>
@@ -275,8 +95,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/Front-end/js/front-end001/">JS 继承</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      JS 继承
     </h1>
   
 
@@ -500,11 +320,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
+  
+  
+    <a href="/Front-end/js/font-end000/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">JS 继承</div>
+    </a>
+  
+</nav>
 
   
+</article>
 
 
 </section>
