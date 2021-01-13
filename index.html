@@ -387,7 +387,7 @@
 <li>Symbol类型<ul>
 <li>其实例 唯一、不可变，确保对象属性使用唯一标识符，不会产生属性冲突</li>
 <li>使用全局符号注册表 Symbol.for() 共享重用实例 Symbol.keyFor()查询全局注册表</li>
-<li>内置符号属性<ul>
+<li>内置符号属性</li>
 <li>Symbol.iterator 一个返回对象默认迭代器的方法，即实现迭代器API的函数，由for-of语句使用<ul>
 <li>由Symbol.iterator函数生成的对象可通过显示调用next()方法返回，也可隐式通过生成器函数返回</li>
 </ul>
@@ -403,8 +403,6 @@
 <li>Symbol.toPrimitive 一个方法，该方法将对象转换为相应的原始值</li>
 <li>Symbol.toStringTag 一个字符串，该字符串用于创建对象的默认字符串描述</li>
 <li>Symbol.unscopables 一个对象，从with环境中排除对应属性</li>
-</ul>
-</li>
 </ul>
 </li>
 <li>Object类型<ul>
