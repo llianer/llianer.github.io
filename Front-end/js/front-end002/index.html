@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>红宝书知识点整理02 | 生如夏花</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="红宝书知识点整理 - 基础5_6_10_8chapter 5 基本引用类型引用类型是把数据和功能组织到一起的结构1. Date将日期保存为自协调世界时(UTC, Universal Time Coordinated)时间1970-01-01零时至今所经过的毫秒数。 12345let now &#x3D; new Date();  &#x2F;&#x2F; 保存当前日期和时间let someDate &#x3D; new Date(Dat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="红宝书知识点整理02">
+<meta property="og:url" content="https://llianer.github.io/Front-end/js/front-end002/index.html">
+<meta property="og:site_name" content="生如夏花">
+<meta property="og:description" content="红宝书知识点整理 - 基础5_6_10_8chapter 5 基本引用类型引用类型是把数据和功能组织到一起的结构1. Date将日期保存为自协调世界时(UTC, Universal Time Coordinated)时间1970-01-01零时至今所经过的毫秒数。 12345let now &#x3D; new Date();  &#x2F;&#x2F; 保存当前日期和时间let someDate &#x3D; new Date(Dat">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-14T00:56:30.000Z">
+<meta property="article:modified_time" content="2021-01-20T03:21:29.597Z">
+<meta property="article:author" content="Lotus Luo">
+<meta property="article:tag" content="front-end">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="生如夏花" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">生如夏花</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">像夏天的花儿，努力绽放后凋谢; 或许没人欣赏，至少曾闪闪发光~</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://llianer.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-front-end002" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/Front-end/js/front-end002/" class="article-date">
+  <time class="dt-published" datetime="2021-01-14T00:56:30.000Z" itemprop="datePublished">2021-01-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-end/">Front-end</a>►<a class="article-category-link" href="/categories/Front-end/js/">js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      红宝书知识点整理02
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="红宝书知识点整理-基础5-6-10-8"><a href="#红宝书知识点整理-基础5-6-10-8" class="headerlink" title="红宝书知识点整理 - 基础5_6_10_8"></a>红宝书知识点整理 - 基础5_6_10_8</h2><h3 id="chapter-5-基本引用类型"><a href="#chapter-5-基本引用类型" class="headerlink" title="chapter 5 基本引用类型"></a>chapter 5 基本引用类型</h3><p><strong>引用类型是把数据和功能组织到一起的结构</strong><br><strong>1. Date</strong><br>将日期保存为自协调世界时(UTC, Universal Time Coordinated)时间1970-01-01零时至今所经过的毫秒数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>();  <span class="comment">// 保存当前日期和时间</span></span><br><span class="line"><span class="keyword">let</span> someDate = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">Date</span>.parse(<span class="string">&quot;5/23/2019&quot;</span>));  <span class="comment">// 创建一个表示2019-05-23的日期对象</span></span><br><span class="line"><span class="keyword">let</span> allFives = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">Date</span>.UTC(<span class="number">2005</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">17</span>, <span class="number">55</span>, <span class="number">55</span>));  <span class="comment">// GMT时间</span></span><br><span class="line"><span class="keyword">let</span> someDate1 = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">&quot;5/23/2019&quot;</span>)  <span class="comment">// 得到和someDate一样的日期对象，Date在后台调用Date.parse()</span></span><br><span class="line"><span class="keyword">let</span> allFives1 = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2005</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">17</span>, <span class="number">55</span>, <span class="number">55</span>);  <span class="comment">// 得到本地时间而非GMT时间，Date隐式调用Date.UTC()</span></span><br></pre></td></tr></table></figure>
+<p>Date.parse() 接收一个表示日期的字符串参数，返回表示该日期的毫秒数<br>Date.UTC(年,月,日,时,分,秒,毫秒) 其中月以0为起点 返回该日期的毫秒表示<br>Date.now() 返回方法执行时日期和时间的毫秒数</p>
+<ul>
+<li>继承的方法 均被重写且返回值不同<ul>
+<li>toLocaleString() 返回与浏览器运行的本地环境一致的日期和时间，不包含时区信息</li>
+<li>toString() 返回带时区信息的日期和时间</li>
+<li>valueOf() 返回日期的毫秒表示</li>
+</ul>
+</li>
+<li>日期格式化方法<ul>
+<li>toDateString()</li>
+<li>toTimeString()</li>
+<li>toLocaleDateString()</li>
+<li>toLocaleTimeString()</li>
+<li>toUTCString()<br>这些方法都会因浏览器而异，因此不能用于在用户界面上一致的显示日期</li>
+</ul>
+</li>
+<li>日期/时间组件方法<br>getTime(), setTime(milliseconds), getFullYear(), getMonth(), getDate()…</li>
+</ul>
+<p><strong>2. RegExp</strong><br>let expression = /pattern/flags<br>pattern: 正则表达式<br>flags: g-全局模式 i-不区分大小写 m-多行模式 y-粘附模式 u-Unicode模式 s-dotAll模式，匹配任何字符<br>元字符 { [ ( \ ^ $ | ) ] } ? * + 需转义<br>分字面量模式 /\w\\hello\\123/ 和字符串模式(需二次转义) “\w\\\\hello\\\\123”</p>
+<ul>
+<li><p>实例属性 global, ignoreCase, unicode, sticky, lastIndex, multiline, dotAll, source, flags</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pattern = <span class="regexp">/\[bc\]at/i</span>;</span><br><span class="line"><span class="keyword">let</span> pattern2 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">&quot;\\[bc\\]at&quot;</span>, <span class="string">&quot;i&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>实例方法<br>主要是exec(),用于配合捕获组使用<br>test()</p>
+</li>
+<li><p>RegExp构造函数属性<br>input($_), lastMatch($&amp;), lastParen($+), leftContext($`), rightContext($’) 括号里为其属性名简写<br>RegExp.$1~RegExp.$9 存储为9个捕获组的匹配项  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> text = <span class="string">&quot;this has been a long summer&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> pattern = <span class="regexp">/(..)or(.)/g</span>;</span><br><span class="line"><span class="keyword">if</span>(pattern.test(text)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">RegExp</span>.$1);  <span class="comment">// sh</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">RegExp</span>.$2);  <span class="comment">// t</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>3. 原始值包装类型</strong><br>Boolean, Number, String<br>让原始值拥有对象的行为</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="string">&quot;some text&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> s2 = s1.substring(<span class="number">2</span>);  <span class="comment">// 原始值不是对象，逻辑上不应该有方法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二行以读模式访问s1时，后台会执行以下三步</span></span><br><span class="line"><span class="comment">// 1 创建String类型实例</span></span><br><span class="line"><span class="comment">// 2 调用实例上特定方法</span></span><br><span class="line"><span class="comment">// 3 销毁实例</span></span><br><span class="line"><span class="keyword">let</span> s1 = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&quot;some text&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> s2 = s1.substring(<span class="number">2</span>);</span><br><span class="line">s1 = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>所有对象在布尔表达式中自动转为true</li>
+<li>Number<br>toFixed()返回包含指定小数点位数的数值字符串<br>toExponential() 返回以科学计数法表示的数值字符串<br>toPrecision() 根据情况返回最合理的输出结果<br>Number.isInteger()用于辨别是否保存为整数<br>Number.isSafeInteger() 数值范围Number.MIN_SAFE_INTEGER - Number.MAX_SAFE_INTEGER</li>
+<li>String  <ul>
+<li>js字符 charAt(index), charCodeAt()/codePointAt()识别32位码点, fromCharCode()/fromCodePoint()</li>
+<li>normalize() 为解决Unicode字符有多种编码方式问题 而进行规范化</li>
+<li>操作方法 concat()拼接字符串(多用+), 提取子字符串：slice(), substr(), substring(startIndex, num)</li>
+<li>位置方法 indexOf(), lastIndexOf()</li>
+<li>包含方法 startsWith(), endsWith(), includes()</li>
+<li>trim(), repeat(), padEnd(), padStart()</li>
+<li>迭代与解构  原型上有@@iterator方法，可通过for-of迭代，通过解构操作符(…)解构</li>
+<li>大小写转换 toLowerCase(), toLocaleLowerCase(), toUpperCase(), toLocaleUpperCase()</li>
+<li>模式匹配方法 match(), search(), replace(), split()</li>
+<li>localeCompare() 比较两个字符串顺序</li>
+<li>HTML方法 bold(), strike(), italics()…</li>
+</ul>
+</li>
+</ul>
+<p><strong>4. 单例内置对象</strong></p>
+<ul>
+<li>Global  <ul>
+<li>URL编码方法 encodeURI(), encodeURIComponent(), decodeURI(), decodeURIComponent()</li>
+<li>eval()方法 一个完整的ECMAScript解释器，接收一个要执行的字符串参数，对XSS利用暴露很大的攻击面</li>
+<li>Global对象属性 NaN, undefined, Object, Array, String, Date, Error…</li>
+<li>window对象 浏览器将window实现为Global对象的代理</li>
+</ul>
+</li>
+<li>Math<ul>
+<li>对象属性 Math.E, Math.PI, Math.SQRT2…</li>
+<li>min(), max()</li>
+<li>舍入方法 Math.ceil(), Math.floor(), Math.round(), Math.fround()</li>
+<li>random()方法返回一个[0,1)范围内的随机数<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">number &#x3D; Math.floor(Math.random()*total_number_of_choices + first_possible_value)</span><br></pre></td></tr></table></figure></li>
+<li>其他方法 Math.abs(x), Math.pow(x, power), Math.sqrt(x), Math.trunc(x)… </li>
+</ul>
+</li>
+</ul>
+<h3 id="chapter-6-集合引用类型"><a href="#chapter-6-集合引用类型" class="headerlink" title="chapter 6 集合引用类型"></a>chapter 6 集合引用类型</h3><p><strong>1. Object</strong><br>可通过构造函数，对象字面量定义，用 . 或 [] 存取对象属性，如果要通过变量存取或属性名包含可能导致语法错误的字符，或包含关键字/保留字，或数字字符都可以使用[]存取对象属性  </p>
+<p><strong>2. Array</strong><br>Array.from() 第一个参数是一个类数组对象，即任何可迭代解构; 第二个可选参数是映射函数; 第三个可选参数是用于指定映射函数中this的值<br>Array.of() 可以把一组参数转换为数组，用于替代之前Array.prototype.slice.call(arguments)  </p>
+<ul>
+<li>检测数组<br>假定只有一个全局执行上下文，使用instanceof，如果有多个框架则可能涉及不同的全局执行上下文，则数组的构造函数不同<br>为解决这个问题，ECMAScript提供了Array.isArray()判定</li>
+<li>迭代器方法<br>ES6中，Array原型上暴露3个用于检索数组内容方法，keys(), values(), entries()这些方法都返回迭代器  </li>
+<li>复制和填充方法<br>copyWithin(), fill()</li>
+<li>转换方法<br>toString(), toLocaleString(),返回逗号分隔的字符串，可通过join()方法指定分隔符 valueOf()</li>
+<li>栈、队列方法<br>栈：后进先出 push(), pop()<br>队列：先进先出 shift(), push(), unshift()在数组开头添加任意多个值，返回新数组长度</li>
+<li>排序方法<br>reverse(), sort() 默认sort会在每项上调用String()转型函数，然后比较字符串按升序排序<br>sort()可以接收一个比较函数。 两者均返回调用他们数组的引用。</li>
+<li>操作方法<br>concat(), slice(), splice()可用作删除、插入、替换使用</li>
+<li>搜索和位置方法<br>两项必须严格相等 indexOf(), lastIndexOf(), includes()<br>断言函数 find(), findIndex()</li>
+<li>迭代方法<br>every(), filter(), forEach(), map(), some(), forEach()相当于使用for循环遍历数组  </li>
+<li>归并方法<br>reduce(),从第一遍历到最后 reduceRight() 从最后遍历到第一项</li>
+</ul>
+<p><strong>3. 定型数组</strong><br>为解决WebGL与JavaScript运行时传递数组需额外进行数值转型，提高与WebGL等原生库交换二进制数据的效率<br>Float32Array是定型数组中可用的第一个”类型”</p>
+<ul>
+<li>ArrayBuffer<br>Float32Array是一种”视图“，允许js运行时访问一块名为ArrayBuffer的预分配内存。<br>ArrayBuffer是所有定型数组引用及视图的基本单位。<br>ArrayBuffer()是一普通的构造函数，可用于在内存中分配特定数量的字节空间。一经创建不能再调整大小，可通过slice()复制全部或部分到一个新实例。要读取写入必须通过视图。</li>
+<li>DataView<br>专为文件I/O和网络I/O设计，其API支持对缓冲数据的高度控制。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buf = <span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">const</span> view = <span class="keyword">new</span> <span class="built_in">DataView</span>(buf);</span><br><span class="line">view.setUint16(<span class="number">0</span>, <span class="number">0x0002</span>, <span class="literal">true</span>);  <span class="comment">// true启用小端字节序(最低有效位保存在第一个字节，最高有效位保存在最后一个字节)</span></span><br><span class="line"><span class="comment">// 缓冲内容 0000 0010 0000 0000</span></span><br><span class="line">alert(view.getUint8(<span class="number">0</span>));  <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+ElementType: Int8, Uint8, Int16, Int32, Float32…DataView为每种类型都暴露get,set方法</li>
+<li>定型数组<br>另一种形式的ArrayBuffer视图，特定于一种ElementType且遵循系统原生的字节序。<br>行为类似普通数组，但由于数组缓冲无法调整大小，concat(), push()等方法不适用。可通过set()和subarray()快速复制数据。<br>利用定型数组API构建拼接能力  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">typedArrayConcat</span>(<span class="params">typedArrayConstructor, ...typedArrays</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> numElements = typedArrays.reduce(<span class="function">(<span class="params">x, y</span>) =&gt;</span> (x.length || x) + y.length);</span><br><span class="line">    <span class="keyword">const</span> resultArray = <span class="keyword">new</span> typedArrayConstructor(numElements);</span><br><span class="line">    <span class="keyword">let</span> currentOffset = <span class="number">0</span>;</span><br><span class="line">    typedArrays.map(<span class="function"><span class="params">x</span> =&gt;</span> &#123;</span><br><span class="line">        resultArray.set(x, currentOffset);</span><br><span class="line">        currentOffset += x.length;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> resultArray;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> concatArray = typedArrayConcat(<span class="built_in">Int32Array</span>, <span class="built_in">Int8Array</span>.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>), <span class="built_in">Int16Array</span>.from([<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]), <span class="built_in">Float32Array</span>.of(<span class="number">8</span>, <span class="number">9</span>));</span><br></pre></td></tr></table></figure></li>
+<li>上溢和下溢<br>不会影响到其他索引，有符号数组上溢下溢自动变成二补数形式(补码)，无符号数组上下溢只取最低有效位</li>
+</ul>
+<p><strong>4. Map</strong><br>可以给Map构造函数传入一个可迭代对象初始化实例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> m = <span class="keyword">new</span> <span class="built_in">Map</span>(&#123;</span><br><span class="line">    [<span class="built_in">Symbol</span>.iterator]: <span class="function"><span class="keyword">function</span>*(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">yield</span> [<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;val1&quot;</span>];</span><br><span class="line">        <span class="keyword">yield</span> [<span class="string">&quot;key2&quot;</span>, <span class="string">&quot;val2&quot;</span>];</span><br><span class="line">        <span class="keyword">yield</span> [<span class="string">&quot;key3&quot;</span>, <span class="string">&quot;val3&quot;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">alert(m.size);  <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<p>可通过set()添加键值对，get()和has()进行查询，delete()和clear()删除值<br>Object只能通过数值、字符串或符号作为键，Map可以使用任何js数据类型作为键<br>Object不维护迭代顺序，Map实例会维护键值对的插入顺序<br>Map实例提供一迭代器，Symbol.iterator属性引用entries(),也可用forEach(callback, opt_thisArg)<br>keys()和values()分别返回以插入顺序生成键和值的迭代器  </p>
+<p><strong>5. WeakMap</strong><br>WeakMap的键只能是Object或者继承自Object的类型，保证只能通过键对象的引用才能取得值<br>弱键，不属于正式的引用，不会阻止垃圾回收，不可迭代<br>使用：私有变量，DOM节点元数据</p>
+<p><strong>6. Set</strong><br>创建并初始化实例，给Set构造函数传入一个可迭代对象，可用add()增加，has()查询，delete()和clear()删除<br>Symbol.iterator属性引用values()别名keys()取得迭代器<br>定义正式集合操作 如交集、并集、差集等</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">XSet</span> <span class="keyword">extends</span> <span class="title">Set</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">union</span>(<span class="params">...sets</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> XSet.union(<span class="built_in">this</span>, ...sets);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...其他</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">union</span>(<span class="params">a, ...bSets</span>)</span> &#123;  <span class="comment">// 返回两个或多个集合的并集</span></span><br><span class="line">        <span class="keyword">const</span> unionSet = <span class="keyword">new</span> XSet(a);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">const</span> b <span class="keyword">of</span> bSets) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">const</span> bValue <span class="keyword">of</span> b) &#123;</span><br><span class="line">                unionSet.add(bValue);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> unionSet;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>7. WeakSet</strong><br>弱集合中的值只能是Object或继承自Object的类型<br>可用于给对象打标签，若被打标签的对象被删除，弱集合对其引用不影响垃圾回收程序对其回收</p>
+<h3 id="chapter-10-函数"><a href="#chapter-10-函数" class="headerlink" title="chapter 10 函数"></a>chapter 10 函数</h3><p>函数是对象，每个函数都是Function类型的实例，函数名是指向函数对象的指针，不一定与函数本身紧密绑定<br>实例化函数对象的方式：函数声明、函数表达式、箭头函数以及使用Function构造函数<br><strong>1. 箭头函数</strong></p>
+<h3 id="chapter-8-对象、类与面向对象编程"><a href="#chapter-8-对象、类与面向对象编程" class="headerlink" title="chapter 8 对象、类与面向对象编程"></a>chapter 8 对象、类与面向对象编程</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://llianer.github.io/Front-end/js/front-end002/" data-id="ckk4vajh2000023li9qepc2cv" data-title="红宝书知识点整理02" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Front-end/js/front-end003/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          红宝书知识点整理03
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Front-end/js/front-end001/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">红宝书知识点整理01</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Front-end/">Front-end</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Front-end/js/">js</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/welcome/">welcome</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Front-end/js/front-end007/">红宝书知识点整理07</a>
+          </li>
+        
+          <li>
+            <a href="/Front-end/js/front-end006/">红宝书知识点整理06</a>
+          </li>
+        
+          <li>
+            <a href="/Front-end/js/front-end005/">红宝书知识点整理05</a>
+          </li>
+        
+          <li>
+            <a href="/Front-end/js/front-end004/">红宝书知识点整理04</a>
+          </li>
+        
+          <li>
+            <a href="/Front-end/js/front-end003/">红宝书知识点整理03</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Lotus Luo<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
