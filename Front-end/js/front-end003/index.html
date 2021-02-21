@@ -6,15 +6,15 @@
   
   <title>红宝书知识点整理03 | 生如夏花</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="红宝书知识点整理 - 进阶11_7_9chapter 11 期约与异步函数chapter 7 迭代器与生成器chapter 9 代理与反射">
+  <meta name="description" content="红宝书知识点整理 - 进阶11_7_9chapter 11 期约与异步函数1. 异步编程在js这种单线程事件循环模型中，同步与异步操作是代码所要依赖的核心机制。在排定回调后基本没办法知道系统状态何时变化，需在状态更新后通知其他代码。使用嵌套回调，不好维护。2. 期约(promise)对尚不存在结果的一个替身，ES6新增正式的Promise(期约)引用类型，增加了对Promise&#x2F;A+规范的完善支持">
 <meta property="og:type" content="article">
 <meta property="og:title" content="红宝书知识点整理03">
 <meta property="og:url" content="https://llianer.github.io/Front-end/js/front-end003/index.html">
 <meta property="og:site_name" content="生如夏花">
-<meta property="og:description" content="红宝书知识点整理 - 进阶11_7_9chapter 11 期约与异步函数chapter 7 迭代器与生成器chapter 9 代理与反射">
+<meta property="og:description" content="红宝书知识点整理 - 进阶11_7_9chapter 11 期约与异步函数1. 异步编程在js这种单线程事件循环模型中，同步与异步操作是代码所要依赖的核心机制。在排定回调后基本没办法知道系统状态何时变化，需在状态更新后通知其他代码。使用嵌套回调，不好维护。2. 期约(promise)对尚不存在结果的一个替身，ES6新增正式的Promise(期约)引用类型，增加了对Promise&#x2F;A+规范的完善支持">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-01-14T01:01:55.000Z">
-<meta property="article:modified_time" content="2021-01-14T01:09:47.083Z">
+<meta property="article:modified_time" content="2021-02-21T14:31:09.317Z">
 <meta property="article:author" content="Lotus Luo">
 <meta property="article:tag" content="front-end">
 <meta name="twitter:card" content="summary">
@@ -104,7 +104,13 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="红宝书知识点整理-进阶11-7-9"><a href="#红宝书知识点整理-进阶11-7-9" class="headerlink" title="红宝书知识点整理 - 进阶11_7_9"></a>红宝书知识点整理 - 进阶11_7_9</h2><h3 id="chapter-11-期约与异步函数"><a href="#chapter-11-期约与异步函数" class="headerlink" title="chapter 11 期约与异步函数"></a>chapter 11 期约与异步函数</h3><h3 id="chapter-7-迭代器与生成器"><a href="#chapter-7-迭代器与生成器" class="headerlink" title="chapter 7 迭代器与生成器"></a>chapter 7 迭代器与生成器</h3><h3 id="chapter-9-代理与反射"><a href="#chapter-9-代理与反射" class="headerlink" title="chapter 9 代理与反射"></a>chapter 9 代理与反射</h3>
+        <h2 id="红宝书知识点整理-进阶11-7-9"><a href="#红宝书知识点整理-进阶11-7-9" class="headerlink" title="红宝书知识点整理 - 进阶11_7_9"></a>红宝书知识点整理 - 进阶11_7_9</h2><h3 id="chapter-11-期约与异步函数"><a href="#chapter-11-期约与异步函数" class="headerlink" title="chapter 11 期约与异步函数"></a>chapter 11 期约与异步函数</h3><p><strong>1. 异步编程</strong><br>在js这种单线程事件循环模型中，同步与异步操作是代码所要依赖的核心机制。<br>在排定回调后基本没办法知道系统状态何时变化，需在状态更新后通知其他代码。<br>使用嵌套回调，不好维护。<br><strong>2. 期约(promise)</strong><br>对尚不存在结果的一个替身，ES6新增正式的Promise(期约)引用类型，增加了对Promise/A+规范的完善支持  </p>
+<ul>
+<li>期约基础<br>1、期约状态机 待定(pending)、解决(resolved)、拒绝(rejected)<br>2、解决值、拒绝理由及期约实例  值或理由都是包含原始值或对象的不可修改的引用，可选，默认为undefined<br>3、通过执行函数控制期约状态 执行器函数是同步执行的，初始化期约<br>4、Promise.resolve() 实例化一个解决的期约，是一个幂等方法，这个静态方法能包装任何非期约值<br>5、Promise.reject() 实例化一个拒绝的期约并抛出一个异步错误，不能通过try/catch捕获，只能通过拒绝处理程序捕获，非幂等<br>6、同步/异步执行的二元性 需通过异步模式捕获错误，期约是同步对象，但也是异步执行模式的媒介  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="built_in">Promise</span>.reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;bar&#x27;</span>));</span><br><span class="line">&#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e);  <span class="comment">// 捕获不到</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 抛出错误</span></span><br><span class="line"><span class="comment">// Uncaught(in promise)Error: bar</span></span><br></pre></td></tr></table></figure>
+拒绝期约的错误没有抛到执行同步代码的线程里，而是通过浏览器异步消息队列来处理的<br>代码一旦以异步模式执行，唯一与之交互的方式就是使用异步结构即期约的方法  </li>
+<li>期约的实例方法<br>是连接外部同步代码与内部异步代码之间的桥梁，可以访问异步操作返回的数据<br>1、实现Thenable接口 ES的Promise类型实现了Thenable接口<br>2、Promise.prototype.then() 接受最多两个参数：onResolved处理程序和onRejected处理程序，返回一个新的期约实例<br>onRejected和onResolved处理程序返回的值都会被Promise.resolve()包装<br>3、Promise.prototype.catch() 相当于调用Promise.prototype.then(null, onRejected)<br>4、Promise.prototype.finally() 给期约添加onFinally处理程序，在期约转换为解决或拒绝状态都会执行，但不知道期约的状态是解决还是拒绝，主要用于添加清理代码。  </li>
+</ul>
+<h3 id="chapter-7-迭代器与生成器"><a href="#chapter-7-迭代器与生成器" class="headerlink" title="chapter 7 迭代器与生成器"></a>chapter 7 迭代器与生成器</h3><h3 id="chapter-9-代理与反射"><a href="#chapter-9-代理与反射" class="headerlink" title="chapter 9 代理与反射"></a>chapter 9 代理与反射</h3>
       
     </div>
     <footer class="article-footer">
@@ -162,7 +168,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li></ul>
     </div>
   </div>
 
@@ -173,6 +179,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/Life/feeling001/">杂记</a>
+          </li>
         
           <li>
             <a href="/Front-end/js/front-end007/">红宝书知识点整理07</a>
@@ -188,10 +198,6 @@
         
           <li>
             <a href="/Front-end/js/front-end004/">红宝书知识点整理04</a>
-          </li>
-        
-          <li>
-            <a href="/Front-end/js/front-end003/">红宝书知识点整理03</a>
           </li>
         
       </ul>
