@@ -5,9 +5,14 @@ categories:
 - [Front-end, interview]
 ---
 ## 2022 前端面试
+待完善，欠的技术债总归要还的～～
+<!-- more -->
 + electron进程间通信
+    - api IPCRenderer.on/send IPCMain.on/send
+    - 进程通信原理及方式：待扩展
 + electron无发版下热更新
 + https TLS/SSL 加密原理
+    - https://mubu.com/doc/6x7zIZGVD5T
 + vue template 模板编译原理
 + vue diff 算法
 + vue 响应式原理
