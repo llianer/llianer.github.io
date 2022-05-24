@@ -5,9 +5,9 @@ categories:
 - [Front-end, vue]
 ---
 ## 源码解读《深入浅出Vue.js》
-### Object的变化侦测
 2022最新出的一本书《Vue.js设计与实现》读起来感觉更好，读书笔记持续更新中...
 https://mubucm.com/doc/1MnFBFxCP2T
+### Object的变化侦测
 <!-- more -->
 ``` javascript
 // 收集依赖、删除依赖或者向依赖发送通知
