@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: A Blog
-subtitle: ''
+title: '生如夏花'
+subtitle: '像夏天的花儿，努力绽放后凋谢，就算无人欣赏，至少曾闪闪发光'
 description: ''
-keywords:
-author: Lotus Luo
-language: en
-timezone: ''
+keywords: 'code front-end js'
+author: 'Lotus Luo'
+language: 'zh-CN'
+timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -102,4 +102,6 @@ theme: landscape
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repository: git@github.com:llianer/llianer.github.io.git
+  branch: main
