@@ -47,7 +47,7 @@
       </h1>
       
         <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">像夏天的花儿，努力绽放后凋谢，就算无人欣赏，至少曾闪闪发光</a>
+          <a href="/" id="subtitle">像夏天的花儿，努力绽放后凋谢; 或许没人欣赏，至少曾闪闪发光~</a>
         </h2>
       
     </div>
@@ -76,14 +76,14 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-front-end000" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-hello-traveler" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/01/10/front-end000/" class="article-date">
-  <time class="dt-published" datetime="2021-01-10T01:07:15.000Z" itemprop="datePublished">2021-01-10</time>
+    <a href="/2022/05/24/hello-traveler/" class="article-date">
+  <time class="dt-published" datetime="2022-05-24T09:09:44.637Z" itemprop="datePublished">2022-05-24</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Front-end/">Front-end</a>►<a class="article-category-link" href="/categories/Front-end/js/">js</a>
+    <a class="article-category-link" href="/categories/welcome/">welcome</a>
   </div>
 
   </div>
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/01/10/front-end000/">JS 继承</a>
+      <a class="p-name article-title" href="/2022/05/24/hello-traveler/">Hello, traveler!</a>
     </h1>
   
 
@@ -102,18 +102,14 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p><em><strong>背景：</strong></em> 曾一次面试，面试官上来就问JS实现继承的方式，当时没怎么搞清楚，一知半解，之后网上查过资料，这里参照红宝书结合自己的理解对这一知识点进行梳理。</p>
-<h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><p><em><strong>基本构想：</strong></em> 每个构造函数都有一原型对象，其实例有个内部指针（即 [[Prototype]]&#x2F;__proto__）指向原型; 如果原型是另一个类型的实例，意味着原型本身有个内部指针指向另一个原型。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">A</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">property</span> = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">A.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getA</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">property</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">B</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">bProperty</span> = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// B 通过原型链方式继承 A 的实例属性和原型方法</span></span><br><span class="line"><span class="comment">// 下面赋值重写了B的原型 重写前 B.prototype.constructor = B</span></span><br><span class="line">B.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title function_">A</span>();</span><br><span class="line"><span class="comment">// 由于 B 的原型的constructor被重写指向A， 所以 B 对应实例的constructor属性也指向 A</span></span><br><span class="line"><span class="keyword">let</span> instance = <span class="keyword">new</span> <span class="title function_">B</span>();</span><br><span class="line"><span class="comment">// 注意：通过对象字面量添加方法会使继承失效</span></span><br><span class="line">B.<span class="property"><span class="keyword">prototype</span></span> = &#123; <span class="title function_">someMethod</span>(<span class="params"></span>) &#123;&#125; &#125;</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2021/01/10/front-end000/#more">Read More</a>
-          </p>
-        
+        <p>  欢迎来到我的博客 <a href="https://llianer.github.io/">my blog</a>!  前端一枚，记录着我的故事，前端修炼心得……<br>  来点文艺的<br>  为一个在成长路上的小星球留下ta的运行轨迹～  </p>
+<p>  爱心<a href="./heartSweet.html">彩蛋</a></p>
+<p>Have fun, my friends!</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://llianer.github.io/2021/01/10/front-end000/" data-id="cl3jyz3210000vnlidmnxdtxq" data-title="JS 继承" class="article-share-link">分享</a>
+      <a data-url="https://llianer.github.io/2022/05/24/hello-traveler/" data-id="cl3k0vk2t0008e7li6jvqg023" data-title="Hello, traveler!" class="article-share-link">分享</a>
       
       
       
