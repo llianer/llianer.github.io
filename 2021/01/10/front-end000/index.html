@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>JS 继承 | 生如夏花</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="背景： 曾一次面试，面试官上来就问JS实现继承的方式，当时没怎么搞清楚，一知半解，之后网上查过资料，这里参照红宝书结合自己的理解对这一知识点进行梳理。 原型链继承基本构想： 每个构造函数都有一原型对象，其实例有个内部指针（即 [[Prototype]]&#x2F;__proto__）指向原型; 如果原型是另一个类型的实例，意味着原型本身有个内部指针指向另一个原型。 1234567891011121">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS 继承">
+<meta property="og:url" content="https://llianer.github.io/2021/01/10/front-end000/index.html">
+<meta property="og:site_name" content="生如夏花">
+<meta property="og:description" content="背景： 曾一次面试，面试官上来就问JS实现继承的方式，当时没怎么搞清楚，一知半解，之后网上查过资料，这里参照红宝书结合自己的理解对这一知识点进行梳理。 原型链继承基本构想： 每个构造函数都有一原型对象，其实例有个内部指针（即 [[Prototype]]&#x2F;__proto__）指向原型; 如果原型是另一个类型的实例，意味着原型本身有个内部指针指向另一个原型。 1234567891011121">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-10T01:07:15.000Z">
+<meta property="article:modified_time" content="2022-04-13T09:36:19.000Z">
+<meta property="article:author" content="Lotus Luo">
+<meta property="article:tag" content="code front-end js">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="生如夏花" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">生如夏花</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">像夏天的花儿，努力绽放后凋谢，就算无人欣赏，至少曾闪闪发光</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://llianer.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-front-end000" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/01/10/front-end000/" class="article-date">
+  <time class="dt-published" datetime="2021-01-10T01:07:15.000Z" itemprop="datePublished">2021-01-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-end/">Front-end</a>►<a class="article-category-link" href="/categories/Front-end/js/">js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      JS 继承
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><em><strong>背景：</strong></em> 曾一次面试，面试官上来就问JS实现继承的方式，当时没怎么搞清楚，一知半解，之后网上查过资料，这里参照红宝书结合自己的理解对这一知识点进行梳理。</p>
+<h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><p><em><strong>基本构想：</strong></em> 每个构造函数都有一原型对象，其实例有个内部指针（即 [[Prototype]]&#x2F;__proto__）指向原型; 如果原型是另一个类型的实例，意味着原型本身有个内部指针指向另一个原型。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">A</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">property</span> = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">A.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getA</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">property</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">B</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">bProperty</span> = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// B 通过原型链方式继承 A 的实例属性和原型方法</span></span><br><span class="line"><span class="comment">// 下面赋值重写了B的原型 重写前 B.prototype.constructor = B</span></span><br><span class="line">B.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title function_">A</span>();</span><br><span class="line"><span class="comment">// 由于 B 的原型的constructor被重写指向A， 所以 B 对应实例的constructor属性也指向 A</span></span><br><span class="line"><span class="keyword">let</span> instance = <span class="keyword">new</span> <span class="title function_">B</span>();</span><br><span class="line"><span class="comment">// 注意：通过对象字面量添加方法会使继承失效</span></span><br><span class="line">B.<span class="property"><span class="keyword">prototype</span></span> = &#123; <span class="title function_">someMethod</span>(<span class="params"></span>) &#123;&#125; &#125;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<ul>
+<li>问题<ul>
+<li>原型中包含引用值时，造成实例共享引用值;</li>
+<li>子类型实例化时不能给构造函数传参</li>
+</ul>
+</li>
+</ul>
+<h3 id="借用构造函数继承"><a href="#借用构造函数继承" class="headerlink" title="借用构造函数继承"></a>借用构造函数继承</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">B</span>(<span class="params"></span>) &#123;</span><br><span class="line">    A.<span class="title function_">call</span>(<span class="variable language_">this</span>);</span><br><span class="line">    <span class="comment">//  ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>问题<ul>
+<li>要在构造函数中定义方法，因此不能重用;</li>
+<li>子类不能访问父类原型上定义的方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h3><p><em><strong>基本思路：</strong></em>使用原型链继承原型上的属性和方法，通过借用构造函数继承实例属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">B</span>(<span class="params"></span>) &#123;</span><br><span class="line">    A.<span class="title function_">call</span>(<span class="variable language_">this</span>);</span><br><span class="line">    <span class="comment">//  ...</span></span><br><span class="line">&#125;</span><br><span class="line">B.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title function_">A</span>();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>问题<ul>
+<li>调用两次父类构造函数</li>
+</ul>
+</li>
+</ul>
+<h3 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h3><p><em><strong>用处：</strong></em>不自定义类型可通过原型实现对象间的信息共享</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">funtion <span class="title function_">create</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">F</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">    F.<span class="property"><span class="keyword">prototype</span></span> = obj;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title function_">F</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;Lily&#x27;</span>,</span><br><span class="line">    <span class="attr">likes</span>: [<span class="string">&quot;book&quot;</span>, <span class="string">&quot;computer&quot;</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// create 是对传入person对象的一次浅复制</span></span><br><span class="line"><span class="comment">// 新对象的原型上既有原始值属性又有引用值属性</span></span><br><span class="line"><span class="keyword">let</span> anoPerson = <span class="title function_">create</span>(person);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>问题<ul>
+<li>属性中包含的引用值始终在相关对象间共享</li>
+</ul>
+</li>
+</ul>
+<h3 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h3><p><em><strong>基本思路：</strong></em>创建一个实现继承的函数，以某种方式增强对象，然后返回这个对象（与原型式继承类似，适合主要关注对象，不在乎类型和构造函数的场景）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createAno</span>(<span class="params">original</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> clone = <span class="title function_">create</span>(original);  <span class="comment">// 创建新对象</span></span><br><span class="line">    clone.<span class="property">sayHi</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;&#125;;  <span class="comment">// 增强新对象</span></span><br><span class="line">    <span class="keyword">return</span> clone;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>问题<ul>
+<li>给对象添加的函数难以重用</li>
+</ul>
+</li>
+</ul>
+<h3 id="寄生式组合继承"><a href="#寄生式组合继承" class="headerlink" title="寄生式组合继承"></a>寄生式组合继承</h3><p><em><strong>基本思路：</strong></em>通过借用构造函数继承属性，但不通过调用父类构造函数给子类原型赋值（解决组合式继承调用两次父类构造函数问题），而是使用寄生式继承来继承父类原型，然后将返回的继承了父类原型的新对象赋值给子类原型。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">inheritProto</span>(<span class="params">fu, zi</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> prototype = <span class="title function_">create</span>(fu.<span class="property"><span class="keyword">prototype</span></span>);  <span class="comment">// 创建父类原型副本</span></span><br><span class="line">    prototype.<span class="property">constructor</span> = zi;  <span class="comment">// 解决由于下面一行重写原型导致的constructor丢失问题</span></span><br><span class="line">    zi.<span class="property"><span class="keyword">prototype</span></span> = prototype;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">inheritProto</span>(A, B);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>问题<ul>
+<li>算是引用类型继承的最佳实践，站在巨人的肩膀上～</li>
+</ul>
+</li>
+</ul>
+<p><i>来自《javascript高级程序设计》第四版 阅读整理</i></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://llianer.github.io/2021/01/10/front-end000/" data-id="cl3jyz3210000vnlidmnxdtxq" data-title="JS 继承" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/01/12/front-end001/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          红宝书系列（一）
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Front-end/">Front-end</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Front-end/interview/">interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-end/js/">js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-end/vue/">vue</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/welcome/">welcome</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/05/24/hello-traveler/">Hello, traveler!</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/12/interview01/">interview01</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/12/vue-core01/">vue-core01</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/14/front-end007/">红宝书系列（七）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/14/front-end006/">红宝书系列（六）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Lotus Luo<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

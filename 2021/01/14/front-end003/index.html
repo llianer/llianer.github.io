@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>红宝书系列（三） | 生如夏花</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="进阶11_7_9chapter 11 期约与异步函数1. 异步编程在js这种单线程事件循环模型中，同步与异步操作是代码所要依赖的核心机制。在排定回调后基本没办法知道系统状态何时变化，需在状态更新后通知其他代码。使用嵌套回调，不好维护。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="红宝书系列（三）">
+<meta property="og:url" content="https://llianer.github.io/2021/01/14/front-end003/index.html">
+<meta property="og:site_name" content="生如夏花">
+<meta property="og:description" content="进阶11_7_9chapter 11 期约与异步函数1. 异步编程在js这种单线程事件循环模型中，同步与异步操作是代码所要依赖的核心机制。在排定回调后基本没办法知道系统状态何时变化，需在状态更新后通知其他代码。使用嵌套回调，不好维护。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-14T01:01:55.000Z">
+<meta property="article:modified_time" content="2021-03-14T08:31:29.000Z">
+<meta property="article:author" content="Lotus Luo">
+<meta property="article:tag" content="code front-end js">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="生如夏花" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">生如夏花</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">像夏天的花儿，努力绽放后凋谢，就算无人欣赏，至少曾闪闪发光</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://llianer.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-front-end003" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/01/14/front-end003/" class="article-date">
+  <time class="dt-published" datetime="2021-01-14T01:01:55.000Z" itemprop="datePublished">2021-01-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-end/">Front-end</a>►<a class="article-category-link" href="/categories/Front-end/js/">js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      红宝书系列（三）
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="进阶11-7-9"><a href="#进阶11-7-9" class="headerlink" title="进阶11_7_9"></a>进阶11_7_9</h2><h3 id="chapter-11-期约与异步函数"><a href="#chapter-11-期约与异步函数" class="headerlink" title="chapter 11 期约与异步函数"></a>chapter 11 期约与异步函数</h3><p><strong>1. 异步编程</strong><br>在js这种单线程事件循环模型中，同步与异步操作是代码所要依赖的核心机制。<br>在排定回调后基本没办法知道系统状态何时变化，需在状态更新后通知其他代码。<br>使用嵌套回调，不好维护。  </p>
+<span id="more"></span>
+<p><strong>2. 期约(promise)</strong><br>对尚不存在结果的一个替身，ES6新增正式的Promise(期约)引用类型，增加了对Promise&#x2F;A+规范的完善支持  </p>
+<ul>
+<li>期约基础<br>1、期约状态机 待定(pending)、解决(resolved)、拒绝(rejected)<br>2、解决值、拒绝理由及期约实例  值或理由都是包含原始值或对象的不可修改的引用，可选，默认为undefined<br>3、通过执行函数控制期约状态 执行器函数是同步执行的，初始化期约<br>4、Promise.resolve() 实例化一个解决的期约，是一个幂等方法，这个静态方法能包装任何非期约值<br>5、Promise.reject() 实例化一个拒绝的期约并抛出一个异步错误，不能通过try&#x2F;catch捕获，只能通过拒绝处理程序捕获，非幂等<br>6、同步&#x2F;异步执行的二元性 需通过异步模式捕获错误，期约是同步对象，但也是异步执行模式的媒介  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="title class_">Promise</span>.<span class="title function_">reject</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;bar&#x27;</span>));</span><br><span class="line">&#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(e);  <span class="comment">// 捕获不到</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 抛出错误</span></span><br><span class="line"><span class="comment">// Uncaught(in promise)Error: bar</span></span><br></pre></td></tr></table></figure>
+拒绝期约的错误没有抛到执行同步代码的线程里，而是通过浏览器异步消息队列来处理的<br>代码一旦以异步模式执行，唯一与之交互的方式就是使用异步结构即期约的方法  </li>
+<li>期约的实例方法<br>是连接外部同步代码与内部异步代码之间的桥梁，可以访问异步操作返回的数据<br>1、实现Thenable接口 ES的Promise类型实现了Thenable接口<br>2、Promise.prototype.then() 接受最多两个参数：onResolved处理程序和onRejected处理程序，返回一个新的期约实例<br>onRejected和onResolved处理程序返回的值都会被Promise.resolve()包装<br>3、Promise.prototype.catch() 相当于调用Promise.prototype.then(null, onRejected)<br>4、Promise.prototype.finally() 给期约添加onFinally处理程序，在期约转换为解决或拒绝状态都会执行，但不知道期约的状态是解决还是拒绝，主要用于添加清理代码。状态无关的方法，大多数情况下表现为父期约的传递(已解决和被拒绝)，若返回待定期约或抛出错误则返回相应期约(待定或拒绝)<br>5、非重入期约方法 当期约进入落定状态，与状态相关的处理程序被推进消息队列，处理程序后的同步代码会在处理程序之前执行<br>拒绝期约类似于throw()表达式，异步错误只能通过异步的onRejected处理程序捕获  </li>
+<li>期约连锁与合成<br>期约的处理程序是按照他们添加的顺序执行的，有向非循环图是体现期约连锁可能性的准确表达，可将异步任务串行化<br>Promise类提供两个将多个期约实例组合成一个期约的静态方法：Promise.all()和Promise.race()<br>Promise.all()创建的期约会在一组期约全部解决后再解决。接收一个可迭代对象，返回新期约。如果有一个待定则合成期约待定，一个拒绝则合成的期约也会拒绝<br>Promise.race()返回一个包装期约，是一组集合中最先解决或拒绝的期约的镜像<br>合成的期约会静默处理所有包含期约的拒绝操作<br>串行期约合成 基于后续期约使用之前期约的返回值来串联期约<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">addTwo</span>(<span class="params">x</span>) &#123; <span class="keyword">return</span> x+<span class="number">2</span>; &#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addThree</span>(<span class="params">x</span>) &#123; <span class="keyword">return</span> x+<span class="number">3</span>; &#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addFive</span>(<span class="params">x</span>) &#123; <span class="keyword">return</span> x+<span class="number">5</span>; &#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">compose</span>(<span class="params">...fns</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">x</span> =&gt;</span> fns.<span class="title function_">reduce</span>(<span class="function">(<span class="params">promise, fn</span>) =&gt;</span> promise.<span class="title function_">then</span>(fn), <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(x));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> addTen = <span class="title function_">compose</span>(addTwo, addThree, addFive);</span><br><span class="line"><span class="title function_">addTen</span>(<span class="number">8</span>).<span class="title function_">then</span>(<span class="variable language_">console</span>.<span class="property">log</span>);  <span class="comment">// 18</span></span><br></pre></td></tr></table></figure></li>
+<li>期约扩展<br>ES6期约实现不具备期约取消和进度追踪特性<br>1、期约取消  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CancelToken</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">cancelFn</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">promise</span> = <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="title function_">cancelFn</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                <span class="built_in">setTimeout</span>(<span class="variable language_">console</span>.<span class="property">log</span>, <span class="number">0</span>, <span class="string">&#x27;delay cancelled&#x27;</span>);</span><br><span class="line">                <span class="title function_">resolve</span>();</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">cancellableDelayedResolve</span>(<span class="params">delay</span>) &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="variable language_">console</span>.<span class="property">log</span>, <span class="number">0</span>, <span class="string">&#x27;set delay&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> id = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">setTimeout</span>(<span class="variable language_">console</span>.<span class="property">log</span>, <span class="number">0</span>, <span class="string">&#x27;delayed resolve&#x27;</span>);</span><br><span class="line">            <span class="title function_">resolve</span>();</span><br><span class="line">        &#125;, delay);</span><br><span class="line">        <span class="keyword">const</span> cancelToken = <span class="keyword">new</span> <span class="title class_">CancelToken</span>(<span class="function">(<span class="params">cancelCallback</span>) =&gt;</span> cancelButton.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, cancelCallback));</span><br><span class="line">        cancelToken.<span class="property">promise</span>.<span class="title function_">then</span>(<span class="function">() =&gt;</span> <span class="built_in">clearTimeout</span>(id));</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">startButton.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> <span class="title function_">cancellableDelayedResolve</span>(<span class="number">1000</span>));</span><br></pre></td></tr></table></figure>
+2、期约进度通知<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TrackablePromise</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Promise</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">executor</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> notifyHandlers = [];</span><br><span class="line">        <span class="variable language_">super</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="title function_">executor</span>(resolve, reject, <span class="function">(<span class="params">status</span>) =&gt;</span> &#123;</span><br><span class="line">                notifyHandlers.<span class="title function_">map</span>(<span class="function">(<span class="params">handler</span>) =&gt;</span> <span class="title function_">handler</span>(status));</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">notifyHandlers</span> = notifyHandlers;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">notify</span>(<span class="params">notifyHandler</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">notifyHandlers</span>.<span class="title function_">push</span>(notifyHandler);</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="title class_">TrackablePromise</span>(<span class="function">(<span class="params">resolve, reject, notify</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">countdown</span>(<span class="params">x</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(x&gt;<span class="number">0</span>) &#123;</span><br><span class="line">            <span class="title function_">notify</span>(<span class="string">`<span class="subst">$&#123;<span class="number">20</span>*x&#125;</span>% remaining`</span>);</span><br><span class="line">            <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="title function_">countdown</span>(x-<span class="number">1</span>), <span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_">resolve</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">countdown</span>(<span class="number">5</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">p.<span class="title function_">notify</span>(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="built_in">setTimeout</span>(<span class="variable language_">console</span>.<span class="property">log</span>, <span class="number">0</span>, x));</span><br><span class="line">p.<span class="title function_">then</span>(<span class="function">() =&gt;</span> <span class="built_in">setTimeout</span>(<span class="variable language_">console</span>.<span class="property">log</span>, <span class="number">0</span>, <span class="string">&#x27;completed&#x27;</span>));</span><br><span class="line"><span class="comment">// notify函数会返回期约，所以可以连缀调用</span></span><br><span class="line">p.<span class="title function_">notify</span>(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="built_in">setTimeout</span>(<span class="variable language_">console</span>.<span class="property">log</span>, <span class="number">0</span>, <span class="string">&#x27;a:&#x27;</span>, x))</span><br><span class="line">    .<span class="title function_">notify</span>(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="built_in">setTimeout</span>(<span class="variable language_">console</span>.<span class="property">log</span>, <span class="number">0</span>, <span class="string">&#x27;b:&#x27;</span>, x));</span><br></pre></td></tr></table></figure>
+<strong>3. 异步函数</strong><br>ES8中提供async&#x2F;await，通过promise异步产生的值不用放到异步处理程序中也能获取到<br>ES对函数进行扩展，新增两关键字：async, await<br>1、async 用于声明异步函数, 若return返回了值，这个值会被Promise.resolve()包装成一个期约对象<br>在异步函数中抛出错误会返回拒绝的期约，但函数中拒绝期约的错误不会被捕获<br>2、await 用于暂停异步函数代码的执行，等待期约解决。与生成器函数中的yield一样，让出js运行时的执行线程<br>等待会抛出错误的同步操作，会返回拒绝的期约，对拒绝的期约使用await会将拒绝期约返回<br>异步函数的特质不会扩展到嵌套函数，await只能直接出现在异步函数的定义中<br>js运行时碰到await时会记录在哪里暂停执行，等到await右边值可用，会向消息队列推送一个恢复异步函数执行的任务  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">sleep</span>(<span class="params">delay</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> <span class="built_in">setTimeout</span>(resolve, delay));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> t0 = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line">    <span class="keyword">await</span> <span class="title function_">sleep</span>(<span class="number">1500</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Date</span>.<span class="property">now</span> - t0);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">foo</span>();  <span class="comment">// 1502</span></span><br></pre></td></tr></table></figure>
+平行执行 如果顺序不必须保证，可以先一次性初始化所有期约，再分别等待它们的结果  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">randomDelay</span>(<span class="params">id</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> delay = <span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`<span class="subst">$&#123;id&#125;</span> finished`</span>); </span><br><span class="line">        <span class="title function_">resolve</span>();    </span><br><span class="line">    &#125;, delay));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> t0 = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line">    <span class="keyword">const</span> promises = <span class="title class_">Array</span>(<span class="number">5</span>).<span class="title function_">fill</span>(<span class="literal">null</span>).<span class="title function_">map</span>(<span class="function">(<span class="params">_, i</span>) =&gt;</span> <span class="title function_">randomDelay</span>(i));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">const</span> p <span class="keyword">of</span> promises) &#123;</span><br><span class="line">        <span class="keyword">await</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 期约没按照顺序执行，但await按顺序收到了每个期约的值</span></span><br></pre></td></tr></table></figure>
+栈追踪与内存管理 js创建期约时会尽可能保留完整调用栈，会更占内存;使用异步函数，栈追踪信息可准确反应当前调用栈，性能更优<br>异步函数是将期约应用于js函数的结果，异步函数可以暂停执行而不会阻塞主线程</li>
+</ul>
+<h3 id="chapter-7-迭代器与生成器"><a href="#chapter-7-迭代器与生成器" class="headerlink" title="chapter 7 迭代器与生成器"></a>chapter 7 迭代器与生成器</h3><p>最简单的迭代 循环遍历数组，迭代在有序集合上进行。es6后支持了迭代器模式<br>可迭代对象 - 实现了Iterable接口，可通过迭代器Iterator消费  </p>
+<ul>
+<li>迭代器模式<br>迭代器是按需创建的一次性对象，每个迭代器都会关联一个可迭代对象，而迭代器会暴露迭代其关联可迭代对象的API<br>1、实现Iterable接口(可迭代协议)要求：1、支持迭代的自我识别 2、创建实现Iterator接口的对象<br>意味着必须暴露一个属性作为默认迭代器，使用Symbol.iterator作为键，这个属性须引用一个迭代器工厂函数，返回一个新迭代器<br>很多内置类型实现了Iterable接口：字符串、数组、映射、集合、arguments对象、NodeList等DOM集合类型<br>这些类型接收可迭代对象的原生语言特性：for-of循环、数组解构、扩展操作符、Array.from()、创建集合、创建映射、Promise.all()及Promise.race()接收由期约组成的可迭代对象、yield * 操作符<br>2、迭代器协议<br>调用迭代器的next()方法返回一个IteratorResult对象，包含两个属性：done和value  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自定义迭代器</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Counter</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">limit</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">limit</span> = limit;</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="title class_">Symbol</span>.<span class="property">iterator</span>]() &#123;</span><br><span class="line">        <span class="keyword">let</span> count = <span class="number">1</span>, limit = <span class="variable language_">this</span>.<span class="property">limit</span>;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="title function_">next</span>(<span class="params"></span>) &#123;  <span class="comment">// 使用闭包形式，每创建一迭代器就对应一新计数器，使得实例可以被迭代多次</span></span><br><span class="line">                <span class="keyword">if</span>(count &lt; limit) &#123;</span><br><span class="line">                    <span class="keyword">return</span> &#123; <span class="attr">done</span>: <span class="literal">false</span>, <span class="attr">value</span>: count++ &#125;;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> &#123; <span class="attr">done</span>: <span class="literal">true</span>, <span class="attr">value</span>: <span class="literal">undefined</span> &#125;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> counter = <span class="keyword">new</span> <span class="title class_">Counter</span>(<span class="number">3</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">of</span> counter) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(i); &#125;</span><br></pre></td></tr></table></figure>
+Symbol.iterator属性引用的工厂函数会返回相同的迭代器<br>3、提前终止迭代器<br>可选的return()方法用于指定在迭代器提前关闭时执行的逻辑，必须返回一个有效的IteratorResult对象</li>
+</ul>
+<ul>
+<li>for-of循环通过break、continue、return或throw提前退出;</li>
+<li>解构操作并未消费所有值。<br>数组迭代器不能关闭，检测迭代器是否可以关闭可以通过测试迭代器实例的return属性是不是函数对象</li>
+</ul>
+<ul>
+<li>生成器<br>拥有在一个函数块内暂停和恢复代码执行的能力。使用生成器可以自定义迭代器和实现协程<br>1、基础 生成器的形式是一个函数，函数名称前加一个星号(*)表示它是一生成器<br>调用生成器函数会产生一个生成器对象，一开始处于暂停状态，实现了Iterator接口，因此有next()方法，调用next()方法会让生成器开始或恢复执行<br>生成器函数只会在初次调用next()方法后开始执行<br>生成器对象实现了Iterable接口，默认的迭代器是自引用的  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>* <span class="title function_">generatorFn</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"><span class="keyword">const</span> g = <span class="title function_">generatorFn</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(g === g[<span class="title class_">Symbol</span>.<span class="property">iterator</span>]());  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+2、通过yield中断执行 yield关键字可以让生成器停止和开始执行<br>yield有点像函数的中间返回语句，它生成的值会出现在next()方法返回的对象里。通过yield关键字退出的生成器函数会处在done: false状态;通过return关键字退出的生成器函数会处于done: true状态。</li>
+</ul>
+<ul>
+<li>生成器对象作为可迭代对象  </li>
+<li>使用yield实现输入和输出 </li>
+<li>产生可迭代对象</li>
+<li>使用yield*实现递归算法<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成随机双向图</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">id</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">id</span> = id;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">neighbors</span> = <span class="keyword">new</span> <span class="title class_">Set</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">connect</span>(<span class="params">node</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(node !== <span class="variable language_">this</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">neighbors</span>.<span class="title function_">add</span>(node);</span><br><span class="line">            node.<span class="property">neighbors</span>.<span class="title function_">add</span>(<span class="variable language_">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RandomGraph</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">size</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">nodes</span> = <span class="keyword">new</span> <span class="title class_">Set</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;size; ++i) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">nodes</span>.<span class="title function_">add</span>(<span class="keyword">new</span> <span class="title class_">Node</span>(i));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> threshold = <span class="number">1</span>/size;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">const</span> x <span class="keyword">of</span> <span class="variable language_">this</span>.<span class="property">nodes</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">const</span> y <span class="keyword">of</span> <span class="variable language_">this</span>.<span class="property">nodes</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() &lt; threshold) &#123;</span><br><span class="line">                    x.<span class="title function_">connect</span>(y);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">print</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">const</span> node <span class="keyword">of</span> <span class="variable language_">this</span>.<span class="property">nodes</span>) &#123;</span><br><span class="line">            <span class="keyword">const</span> ids = [...node.<span class="property">neighbors</span>]</span><br><span class="line">                .<span class="title function_">map</span>(<span class="function"><span class="params">n</span> =&gt;</span> n.<span class="property">id</span>)</span><br><span class="line">                .<span class="title function_">join</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`<span class="subst">$&#123;node.id&#125;</span>: <span class="subst">$&#123;ids&#125;</span>`</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">isConnected</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> visitedNodes = <span class="keyword">new</span> <span class="title class_">Set</span>();</span><br><span class="line">        <span class="keyword">function</span>* <span class="title function_">traverse</span>(<span class="params">nodes</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">const</span> node <span class="keyword">of</span> nodes) &#123;</span><br><span class="line">                <span class="keyword">if</span>(!visitedNodes.<span class="title function_">has</span>(node)) &#123;</span><br><span class="line">                    <span class="keyword">yield</span> node;</span><br><span class="line">                    <span class="keyword">yield</span>* <span class="title function_">traverse</span>(node.<span class="property">neighbors</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> firstNode = <span class="variable language_">this</span>.<span class="property">nodes</span>[<span class="title class_">Symbol</span>.<span class="property">iterator</span>]().<span class="title function_">next</span>().<span class="property">value</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">const</span> node <span class="keyword">of</span> <span class="title function_">traverse</span>([firstNode])) &#123;</span><br><span class="line">            visitedNodes.<span class="title function_">add</span>(node);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> visitedNodes.<span class="property">size</span> === <span class="variable language_">this</span>.<span class="property">nodes</span>.<span class="property">size</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+3、生成器作为默认迭代器<br>4、提前终止生成器<br>生成器对象的return()和throw()方法都可以用于强制生成器进入关闭状态</li>
+</ul>
+<h3 id="chapter-9-代理与反射"><a href="#chapter-9-代理与反射" class="headerlink" title="chapter 9 代理与反射"></a>chapter 9 代理与反射</h3><p><strong>1. 基础</strong><br>从很多方面看，代理类似C++指针，因为它可用作目标对象的替身，但又完全独立于目标对象<br>代理通过Proxy构造函数创建，接收两参数，目标对象和处理程序对象<br>Proxy.prototype是undefined,因此不能使用instanceof操作符<br>1、定义捕获器 - 处理程序对象中定义的基本操作的拦截器,如get()<br>get()捕获器会接收到目标对象、要查询的属性和代理对象三个参数，可基于这些参数重建原始操作<br>但也不需要手动重建原始行为，可通过全局Reflect对象上(封装了原始行为)的同名方法来轻松重建<br>处理程序对象中所有可以捕获的方法都有对应的(Reflect)API方法  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> target = &#123;</span><br><span class="line">    <span class="attr">foo</span>: <span class="string">&#x27;bar&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> proxy = <span class="keyword">new</span> <span class="title class_">Proxy</span>(target, <span class="title class_">Reflect</span>);  <span class="comment">// 创建捕获所有方法且都转发给对应反射API的空代理</span></span><br><span class="line"><span class="keyword">const</span> proxy1 = <span class="keyword">new</span> <span class="title class_">Proxy</span>(target, &#123;</span><br><span class="line">    <span class="title function_">get</span>(<span class="params">target, property, receiver</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get()&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">Reflect</span>.<span class="title function_">get</span>(...<span class="variable language_">arguments</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>捕获处理程序的行为必须遵循“捕获不变式”(trap invariant)”,防止捕获器定义出过于反常的行为<br>Proxy暴露了revocable()方法，支持撤销代理对象与目标对象的关联，撤销操作不可逆且幂等  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> target = &#123;</span><br><span class="line">    <span class="attr">foo</span>: <span class="string">&#x27;bar&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> handler = &#123;</span><br><span class="line">    <span class="title function_">get</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;intercepted&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 在实例化时同时生成撤销函数(revoke)和代理对象</span></span><br><span class="line"><span class="keyword">const</span> &#123; proxy, revoke &#125; = <span class="title class_">Proxy</span>.<span class="title function_">revocable</span>(target, handler);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(proxy.<span class="property">foo</span>);  <span class="comment">// intercepted</span></span><br><span class="line"><span class="title function_">revoke</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(proxy.<span class="property">foo</span>);  <span class="comment">// TypeError</span></span><br></pre></td></tr></table></figure>
+<p>大多数反射API方法在Object类型上有对应的方法，Object上的方法适用于通用程序，反射方法适用于细粒度的对象控制与操作<br>返回状态标记(布尔值，表示操作是否成功)的反射方法：</p>
+<ul>
+<li>Reflect.defineProperty()</li>
+<li>Reflect.preventExtensions()</li>
+<li>Reflect.setPrototypeOf()</li>
+<li>Reflect.set()</li>
+<li>Reflect.deleteProperty()<br>使用反射方法替代操作符：  </li>
+<li>Reflect.get()替代对象属性访问操作符</li>
+<li>Reflect.set()替代赋值操作符</li>
+<li>Reflect.has()替代in或with()</li>
+<li>Reflect.deleteProperty()替代delete</li>
+<li>Reflect.construct()替代new</li>
+</ul>
+<p>可在一个目标对象上构建多层拦截，代理另一个代理<br>代理中的问题 - 代理中的this，目标对象依赖对象标识时; Date类型方法的执行依赖内部槽位[[NumberDate]],而代理对象上不存在这个内部槽位  </p>
+<p><strong>2. 代理捕获器与反射方法</strong><br>只要在代理上调用，所有捕获器都会拦截它们对应的反射API操作<br>代理可捕获13种不同的基本操作 - get(),set(),has(),defineProperty(),<br>getOwnPropertyDescriptor(),deleteProperty(),ownKeys(),<br>getPrototypeOf(),setPrototypeOf(),isExtensible(),<br>preventExtensions(),apply(),construct()  </p>
+<p><strong>3. 代理模式</strong><br>1、跟踪属性访问<br>2、隐藏属性<br>3、属性验证<br>4、函数与构造函数参数验证<br>5、数据绑定与可观察对象  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> userList = [];</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">emit</span>(<span class="params">newValue</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(newValue);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> proxy = <span class="keyword">new</span> <span class="title class_">Proxy</span>(userList, &#123;</span><br><span class="line">    <span class="title function_">set</span>(<span class="params">target, property, value, receiver</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> result = <span class="title class_">Reflect</span>.<span class="title function_">set</span>(...<span class="variable language_">arguments</span>);</span><br><span class="line">        <span class="keyword">if</span>(result) &#123;</span><br><span class="line">            <span class="title function_">emit</span>(<span class="title class_">Reflect</span>.<span class="title function_">get</span>(target, property, receiver));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://llianer.github.io/2021/01/14/front-end003/" data-id="cl3jyz3300013vnliche6cul7" data-title="红宝书系列（三）" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/01/14/front-end004/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          红宝书系列（四）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/01/14/front-end002/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">红宝书系列（二）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Front-end/">Front-end</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Front-end/interview/">interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-end/js/">js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-end/vue/">vue</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/welcome/">welcome</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/05/24/hello-traveler/">Hello, traveler!</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/12/interview01/">interview01</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/12/vue-core01/">vue-core01</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/14/front-end007/">红宝书系列（七）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/14/front-end006/">红宝书系列（六）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Lotus Luo<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
